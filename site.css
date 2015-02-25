@@ -1,0 +1,38 @@
+canvas
+{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+h1
+{
+  background-color: #fff;
+  display: inline-block;
+  padding: 10px;
+  margin-left: 10px;
+  /*font-family: Nunito;*/
+  font-size: 3em;
+}
+
+ul
+{
+  list-style: none;
+}
+
+li
+{
+  background-color: #fff;
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  font-size: 1.5em;
+}
+
+a
+{
+  text-decoration: none;
+}
