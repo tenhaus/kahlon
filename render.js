@@ -24,7 +24,7 @@ function createABox(point, size) {
     onMouseMove: onMouseOverBox
   });
 
-  createPhysicsFor(path);
+  // createPhysicsFor(path);
 
   var bounds = {
     x: point.x,
@@ -100,12 +100,12 @@ function onMouseOverBox(event)
   var box = event.target;
   box.point = event.point;
 
-  splitABox(box, 5);
+  splitABox(box, 1);
 }
 
-function splitABox(box, iterations) {
+function splitABox(box, iterations, splitBoth) {
 	if (!loaded) return;
-	if (lastPos.getDistance(box.point) < 10) return;
+	if (lastPos.getDistance(box.point) < 1) return;
 
   lastPos = box.point;
 
@@ -144,10 +144,12 @@ function splitABox(box, iterations) {
 
   removeABox(thisBox);
 
-  if(iterations && iterations !== 0)
+  if(iterations && iterations > 1)
   {
-    splitABox(firstBox, --iterations);
-    // splitABox(secondBox, false);
+    iterations--;
+
+    splitABox(firstBox, iterations, splitBoth);
+    if (splitBoth) splitABox(secondBox, iterations, splitBoth);
   }
 }
 
@@ -171,11 +173,5 @@ function onResize(event) {
     view.bounds
   );
 
-  // rootBox.fillColor = raster.getAverageColor(view.bounds);
-
-	// rootPath = new Path.Rectangle({
-	// 	rectangle: view.bounds,
-	// 	fillColor: raster.getAverageColor(view.bounds),
-	// 	onMouseMove: onMouseOverBox
-	// });
+  splitABox(rootBox, 5, true);
 }
