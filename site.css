@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, p {
   display: inline-block;
   padding: 10px;
   margin-left: 10px;
+  border: 1px solid #666;
 }
 
 h1 {
@@ -20,14 +21,12 @@ h1 {
 
 p {
   font-size: 1.5em;
-  margin-left: 2em;
-  margin-right: 2em;
+  margin-left: 15%;
+  margin-right: 15%;
   margin-top: .15em;
   margin-bottom: .15em;
   padding: 1em;
-  opacity: .9;
-  border: 1px solid #000;
-
+  opacity: .93;
 }
 
 
@@ -54,4 +53,14 @@ img {
   margin-bottom: 20px;
   margin-top: 10px;
   margin-left: 20px;
+}
+
+.video {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 80%;
+  height: 20em;
+  border: 1px solid #000;
 }
