@@ -16,7 +16,7 @@ else if(page.indexOf('past') !== -1) {
   raster = new Raster('abdu.jpg');
 }
 else {
-  raster = new Raster('josh.jpg');
+  raster = new Raster('kahlon.jpg');
 }
 
 var loaded = false;
