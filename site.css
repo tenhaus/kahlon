@@ -1,3 +1,8 @@
+html, body
+{
+  margin-bottom: 20em;
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -63,4 +68,14 @@ img {
   width: 80%;
   height: 20em;
   border: 1px solid #000;
+}
+
+.residents {
+  text-align: center;
+}
+
+.residents p {
+  display: inline-block;
+  margin-left: 0px;
+  margin-right: 0px;
 }

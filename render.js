@@ -1,12 +1,36 @@
 var rootPath;
 var paths = [];
 
-$(document).ready(init);
+// Create a raster item:
 
-function init()
-{
+var raster = {};
+var page = window.location.pathname;
 
+if(page.indexOf('index') !== -1) {
+  raster = new Raster('kahlon.jpg');
 }
+else if(page.indexOf('about') !== -1) {
+  raster = new Raster('crowd.jpg');
+}
+else if(page.indexOf('past') !== -1) {
+  raster = new Raster('abdu.jpg');
+}
+else {
+  raster = new Raster('josh.jpg');
+}
+
+var loaded = false;
+
+
+raster.on('load', function() {
+	loaded = true;
+	onResize();
+});
+
+// Make the raster invisible:
+raster.visible = false;
+
+var lastPos = view.center;
 
 function createABox(point, size) {
   var path = new Path.Rectangle({
@@ -32,31 +56,6 @@ function removeABox(path)
 {
   path.remove();
 }
-
-function createPhysicsFor(path)
-{
-  // Store the box
-  paths.push(box);
-
-  // Birth the box
-  world.add(box);
-
-  return path;
-}
-
-// Create a raster item:
-var raster = new Raster('abdu.jpg');
-var loaded = false;
-
-raster.on('load', function() {
-	loaded = true;
-	onResize();
-});
-
-// Make the raster invisible:
-raster.visible = false;
-
-var lastPos = view.center;
 
 function onMouseOverBox(event)
 {
