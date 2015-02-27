@@ -1,20 +1,11 @@
 var rootPath;
-var boxes;
-var world;
+var paths = [];
 
 $(document).ready(init);
 
 function init()
 {
-  boxes = [];
-  world = Physics();
-  Physics.util.ticker.stop();
 
-  var gravity = Physics.behavior('constant-acceleration', {
-      acc: { x : 0, y: 0.001 }
-  });
-
-  world.add(gravity);
 }
 
 function createABox(point, size) {
@@ -24,8 +15,6 @@ function createABox(point, size) {
     onMouseMove: onMouseOverBox
   });
 
-  // createPhysicsFor(path);
-
   var bounds = {
     x: point.x,
     y: point.y,
@@ -34,52 +23,26 @@ function createABox(point, size) {
   };
 
   path.fillColor = raster.getAverageColor(bounds);
+  paths.push(path);
 
   return path;
 }
 
 function removeABox(path)
 {
-  world.remove(path.box);
   path.remove();
 }
 
 function createPhysicsFor(path)
 {
-  var box = Physics.body('rectangle', {
-    x: path.point.x,
-    y: path.point.y,
-    width: path.size.width,
-    height: path.size.height,
-    weight: Math.random() * 100
-  });
-
-  // Let's hug
-  box.path = path;
-  path.box = box;
-
   // Store the box
-  boxes.push(box);
+  paths.push(box);
 
   // Birth the box
   world.add(box);
 
   return path;
 }
-
-function onFrame() {
-  _.forEach(boxes, function(box) {
-    var path = box.path;
-
-    path.position.x = box.state.pos.x + path.size.width/2;
-    path.position.y = box.state.pos.y + path.size.height/2;
-  });
-}
-
-
-Physics.util.ticker.on(function( time ){
-    world.step(time);
-});
 
 // Create a raster item:
 var raster = new Raster('abdu.jpg');
@@ -100,13 +63,19 @@ function onMouseOverBox(event)
   var box = event.target;
   box.point = event.point;
 
-  splitABox(box, 1);
+  splitABox(box, 3, true);
+}
+
+function splitARandomBox() {
+  var path = _.sample(paths, 1);
+  splitABox(path[0], 1);
 }
 
 function splitABox(box, iterations, splitBoth) {
 	if (!loaded) return;
-	if (lastPos.getDistance(box.point) < 1) return;
-
+	if (lastPos.getDistance(box.point) < 10) return;
+  if (box.bounds.size.height === 0) return;
+  if (box.bounds.size.width === 0) return;
   lastPos = box.point;
 
   var thisBox = box;
